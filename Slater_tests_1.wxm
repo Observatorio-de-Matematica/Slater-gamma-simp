@@ -1,0 +1,117 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+/* Setup for Slater (Generalized Hypergeometric Functions)
+Appendix I */
+kill(ap);
+load("gamma_simp.mac");
+declare(n,integer,N,integer,k,integer,j,integer);
+plargs:true;
+file_output_append:true;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* List of id's [Left,Right]*/;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+ap:
+[[pochhammer(a+n,n),pochhammer(a,2*n)/pochhammer(a,n)],
+ [pochhammer(a+k*n,n),pochhammer(a,(k+1)*n)/pochhammer(a,k*n)],
+ [pochhammer(a-n,n),((-1)^n)*pochhammer(1-a,n)],
+ [pochhammer(a-k*n,n),(-1)^n*pochhammer((1-a),k*n)/pochhammer(1-a,(k-1)*n)],
+ [pochhammer(a,-n),(-1)^n/pochhammer(1-a,n)],
+ [pochhammer(a,-n),gamma(a-n)/gamma(a)],
+    [pochhammer(a,N-n),(-1)^n*pochhammer(a,N)/pochhammer(1-a-N,n)],
+    [pochhammer(a+n,N-n),pochhammer(a,N)/pochhammer(a,n)],
+    [pochhammer(a+k*n,N-n),pochhammer(a,N)*pochhammer(a+N,(k-1)*n)/pochhammer(a,k*n)],
+    [pochhammer(a-n,N-n),pochhammer(a,N)*(-1)^n*pochhammer(1-a,n)/pochhammer(1-a-N,2*n)],
+    [pochhammer(a-k*n,N-n),(-1)^n*pochhammer(a,N)*pochhammer(1-a,k*n)/pochhammer(1-a-N,(k+1)*n)],
+    [pochhammer(a+n,N),pochhammer(a,N)*pochhammer(a+N,n)/pochhammer(a,n)],
+    [pochhammer(a-n,N),pochhammer(1-a,n)*pochhammer(a,N)/pochhammer(1-a-N,n)],
+    [pochhammer(a+n,N-2*n),(-1)^n*pochhammer(a,N)/((pochhammer(1-a-N,n)*pochhammer(a,n)))],
+    [pochhammer(a+k*n,N-j*n),pochhammer(a,N)*pochhammer(a+N,k*n-j*n)/pochhammer(a,k*n)],
+    [pochhammer(a-n,N-2*n),pochhammer(a,N)*pochhammer(1-a,n)/pochhammer(1-a-N,3*n)],
+    [1,1],/*[pochhammer(a-k*n,N-j*n),pochhammer(a,N)*(-1)^((k+j)*n)*pochhammer(1-a,k*n)/pochhammer(1-a-N,j*n)],*/
+    [pochhammer(a+n,2*n),pochhammer(a,3*n)/pochhammer(a,n)],
+    [pochhammer(a+k*n,j*n),pochhammer(a,(k+j)*n)/pochhammer(a,k*n)],
+    [pochhammer(a-n,2*n),(-1)^n*pochhammer(a,n)*pochhammer(1-a,n)],
+    [1,1],/*[pochhammer(a-k*n,j*n),pochhammer(a,(k+j)*n)*(-1)^(k*n)*pochhammer(1-a,k*n)] , j=>k*/
+    [1,1],/*[pochhammer(a-k*n,j*n),pochhammer(1-a,k*n)*(-1)^(j*n)/pochhammer(1-a,(k-j)*n)], j<k */
+    [pochhammer(a,2*n),pochhammer(a/2,n)*pochhammer((a+1)/2,n)*2^(2*n)],
+    [gamma(1-z),%pi/(sin(%pi*z)*gamma(z))],
+    [gamma(a-n),gamma(a)/pochhammer(a-n,n)],
+    [gamma(a-n),gamma(a)*(-1)^n/pochhammer(1-a,n)]
+];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+test(left,right):=
+/* Note: you should be able to use"/" or "-" in the next line and get 1 or 0 */
+(   
+    tmp1:makegamma(left/right),
+    print("makegamma",tmp1),
+    tt:'gamma_simp(tmp1),
+    /*stringout("test.mac",tt),*/
+    tmp2:gamma_simp(tmp1),
+    print("gamma_simp: ",tmp2 ),
+    stringout("test.mac",tt,tmp2),
+    tmp3:expand(tmp2),
+    print("expanded: ",tmp3),
+    tmp4:trigexpand(tmp3),
+    print("trigexpand: ",tmp4)
+);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+test_scan(ap1):=block( [p:0],
+    (for i: 1 thru  4 do  ( 
+            print("testing",i,"------------------------"),
+        tmp1:test(ap1[i][1],ap1[i][2]),
+            print(tmp1)
+        /*stringout("test.mac",tmp1)*/
+        /*print(tmp1)*/) ));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+test_scan(ap);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+stringout("test.mac",gamma_simp(ap[1][1]/ap[1][2]));
+/*stringout("test.mac","line 1",ap[2][1]/ap[2][2]);*/
+/*stringout("test.mac",tt,1,"$")*/
+
+;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+ ap[23];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+length(ap);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+makegamma(pochhammer(a,n));makegamma(pochhammer(a,-n));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+length(ap);
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$
